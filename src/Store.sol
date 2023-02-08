@@ -48,6 +48,26 @@ contract Store {
     }
 
     // ######################## End of Owner functionalities ##############################
+    // ####################### Functionalities of Buyer ###################################
+    struct Order {
+        string _name;
+        uint256 _price;
+        uint256 _time;
+    }
+    mapping(address => Order) public order;
+
+    function Buy(uint256 _id,uint256 _qty) public payable {
+        Item memory items = item[_id];
+        require(items.available > 0,"No products available");
+        require(_qty > 0,"Zero not accepted");
+        require(_qty <= items.available,"Qty more than available products");
+        item[_id].available = items.available - _qty;
+        order[msg.sender] = Order(items.name,msg.value,block.timestamp);
+
+    }
+    // ######################## End of Buyer functionalities ##############################
+
+
 
 
 }
