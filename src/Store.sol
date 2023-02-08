@@ -61,7 +61,7 @@ contract Store {
         require(items.available > 0,"No products available");
         require(_qty > 0,"Zero not accepted");
         require(_qty <= items.available,"Qty more than available products");
-        item[_id].available = items.available - _qty;
+        items.available = items.available - _qty;
         order[msg.sender] = Order(items.name,msg.value,block.timestamp);
 
     }
